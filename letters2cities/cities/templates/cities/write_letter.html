@@ -4,4 +4,16 @@
 {% block content %}
 <h2>Write your letter to {{ city.name }}</h2>
 
+<form action="" method="post">{% csrf_token %}
+  <div class="mb-3">
+    <label for="letter" class="form-label">Your Letter (max 200 chars)</label>
+    <input type="text" class="form-control" id="letter" name="letter" required maxlength="200">
+  </div>
+  <div class="mb-3">
+    <label for="author" class="form-label">Your name (max 30 chars)</label>
+    <input type="text" class="form-control" id="author" name="author" required maxlength="30">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
 {% endblock %}

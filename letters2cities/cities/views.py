@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.views import generic
 
 from .models import City, Letter
+from .forms import LetterForm
 
 # Create your views here.
 class CityListView(generic.ListView):
@@ -28,7 +29,17 @@ class CityDetailView(generic.DetailView):
 
 def write_letter(request, pk):
     city = get_object_or_404(City, pk=pk)
-    return render(request, "cities/write_letter.html", {"city": city})
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request
+        form = LetterForm(request.POST)
+        # check whether it's valid
+        if form.is_valid():
+            Letter(city=city, content=form.cleaned_data["letter"], author=form.cleaned_data["author"]).save()
+            return HttpResponseRedirect(f'/{pk}')
+    else:
+        form = LetterForm()
+        return render(request, "cities/write_letter.html", {"city": city, "form": form})
+
 
 def page_not_found(request, exception):
     return render(request, "cities/404.html")
