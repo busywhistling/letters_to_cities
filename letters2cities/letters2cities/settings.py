@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,17 +22,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # todo: of course change the secret key in production
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-)zw*j%7585st0nil0l8xm*(f0b)ku54wxqjzbvfnwaes&*q&+d"
+SECRET_KEY = config("SECRET_KEY") # this is to replace the secret key you cut away before
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# ALLOWED_HOSTS = ["localhost"]
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
 INSTALLED_APPS = [
+    "cities.apps.CitiesConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

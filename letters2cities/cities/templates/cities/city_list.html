@@ -1,0 +1,21 @@
+{% extends "cities/base.html" %}
+{% load static %}
+
+{% block content %}
+    {% if cities_list %}
+    <div class="container d-flex flex-wrap w-auto">
+            {% for city in cities_list %}
+            <div class="card m-2" style="width: 18rem">
+                <img src="{% static 'cities/'|add:city.image_file %}" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">{{ city.name }}</h5>
+                    {# <p class="card-text">A brief summary</p> #}
+                    <a href="/{{city.id}}" class="stretched-link"></a>
+                </div>
+            </div>
+            {% endfor %}
+    </div>
+    {% else %}
+        <p>No cities are available.</p>
+    {% endif %}
+{% endblock %}
